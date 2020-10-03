@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_crud/providers/employee_provider.dart';
 import 'package:provider/provider.dart';
 import '../models/employee_model.dart';
+import './employee_add.dart';
 
 class Employee extends StatelessWidget{
   final data = [
@@ -68,7 +69,9 @@ class Employee extends StatelessWidget{
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         child: Text('+'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeeAdd()));
+        },
       ),
     );
   }
