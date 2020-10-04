@@ -35,5 +35,31 @@ class EmployeeProvider extends ChangeNotifier{
     }
     return false;
   }
+  
+  Future<EmployeeModel> findEmployee(String id) async{
+    return _data.firstWhere((i) => i.id == id);
+  }
+
+  Future<bool> updateEmployee(id, name, age, salary) async{
+    final url = 'http://employee-crud-flutter.daengweb.id/update.php';
+    final response = await http.post(url, body: {
+      'id': id,
+      'employee_name': name,
+      'employee_age': age,
+      'employee_salary': salary,
+    });
+
+    final result = json.decode(response.body);
+    if(response.statusCode == 200 && result['status'] == 'success'){
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> deleteEmployee(String id) async{
+    final url = 'http://employee-crud-flutter.daengweb.id/delete.php';
+    await http.get(url + '?id=$id');
+  }
 
 }
